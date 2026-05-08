@@ -16,7 +16,8 @@ def create_table():
             CREATE TABLE IF NOT EXISTS usuarios (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nome TEXT,
-            email TEXT
+            email TEXT,
+            senha TEXT
         )""") #executa meus comandos sql, para criar a tabela.
     connection.commit() #salva essa tabela criada no banco de dados
     connection.close() #fecha a conexao com o banco de dados

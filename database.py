@@ -21,3 +21,15 @@ def create_table():
         )""") #executa meus comandos sql, para criar a tabela.
     connection.commit() #salva essa tabela criada no banco de dados
     connection.close() #fecha a conexao com o banco de dados
+
+def register_user(nome, email, senha):
+    connection = get_connection()
+    cursor = connection.cursor()
+    cursor.execute("""
+    INSERT INTO usuarios (
+        nome, 
+        email, 
+        senha
+    ) VALUES (?, ?, ?)""", (nome, email, senha))
+    connection.commit()
+    connection.close()

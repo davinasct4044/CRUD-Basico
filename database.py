@@ -22,14 +22,28 @@ def create_table():
     connection.commit() #salva essa tabela criada no banco de dados
     connection.close() #fecha a conexao com o banco de dados
 
-def register_user(nome, email, senha):
-    connection = get_connection()
-    cursor = connection.cursor()
+def register_user(nome, email, senha): #essa função registra os dados(params) do usuario no banco de dados
+    connection = get_connection() #inicia a conexão
+    cursor = connection.cursor()#da conexão ele pega o método cursor
     cursor.execute("""
     INSERT INTO usuarios (
         nome, 
         email, 
         senha
     ) VALUES (?, ?, ?)""", (nome, email, senha))
-    connection.commit()
-    connection.close()
+    #Executa os comandos SQL para cadastrar usuario
+    # Os ? são placeholders que o SQLite substitui pelos valores da tupla,
+    # evitando SQL Injection
+    connection.commit() #salva as alterações no banco de dados
+    connection.close() #fecha a conexão com o banco de dados
+
+def get_users(): #estrutura da função que lê os dados e os retorna
+    connection = get_connection() #inicia a conexão
+    cursor = connection.cursor() # da conexão ele pega o método cursor
+    cursor.execute("""
+    SELECT id, nome, email FROM usuarios""")
+    #executa o comando sql para ler os dados do banco de dados
+    #aqui não precisa de connection.commit() pq não modifica o banco de dados, apenas lê
+    users = cursor.fetchall()#atribui todos os dados buscados no cursor dentro da variavel
+    connection.close()#fecha a conexão
+    return users #retorna os usuarios do banco de dados

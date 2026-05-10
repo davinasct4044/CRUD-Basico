@@ -18,7 +18,15 @@
                 <th>email</th>
             </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+        {% for usuario in usuarios %}
+    <tr>
+        <td>{{ usuario[0] }}</td>
+        <td>{{ usuario[1] }}</td>
+        <td>{{ usuario[2] }}</td> 
+    </tr>
+        {% endfor %}
+        </tbody>
     </table>
 </body>
 </html>

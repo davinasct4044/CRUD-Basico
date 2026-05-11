@@ -48,17 +48,27 @@ def get_users(): #estrutura da função que lê os dados e os retorna
     connection.close()#fecha a conexão
     return users #retorna os usuarios do banco de dados
 
-def get_users_by_id(id):
-    connection = get_connection()
-    cursor = connection.cursor()
+def get_users_by_id(id):#só recebe o id como parâmetro
+    connection = get_connection()#inicia a conexao
+    cursor = connection.cursor()#pega o cursor da conexao
     cursor.execute("""SELECT * FROM usuarios WHERE id = ?""", (id, ))
-    user = cursor.fetchone()
-    connection.close()
-    return user
+    """executa o comando sql, usando o WHERE para filtrar o usuario pelo id, nos paramente tem q colocar a virgula
+    após o parametro, assim o SQlite entende que é uma tupla."""
+    user = cursor.fetchone()#pega só um resultado o outro fetch retorna uma lista
+    connection.close()#fecha a conexão
+    return user#retorna os valores desse usuario
         
-def update_user(id, nome, email, senha):
-    connection = get_connection()
-    cursor = connection.cursor()
+def update_user(id, nome, email, senha):#atualiza todos os dados do usuario, por isso pega todos os params
+    connection = get_connection()#inicia a conexão
+    cursor = connection.cursor()#pega o cursor da conexão
     cursor.execute(""" UPDATE usuarios SET nome = ?, email = ?, senha = ? WHERE id = ?""", (nome, email, senha, id))
-    connection.commit()
-    connection.close()
+    #executa os comandos sql, para atualizar os dados,coloca ? que depois vira o valor que tá no params, questão de segurança.
+    connection.commit()#salva a alteração
+    connection.close()#fecha a conexão
+
+def delete_user(id)#recebe o id da função erase_user
+    connection = get_connection()#inicia a conexão
+    cursor = connection.cursor()#pega o cursor da conexão
+    cursor.execute("""DELETE FROM usuarios WHERE id = ?""", (id, )) #tem q ter a virgula no (id,)
+    connection.commit()#salva as alerações
+    connection.close() #fecha a conexão

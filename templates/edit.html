@@ -11,9 +11,12 @@
     <h1>Dados do usuário disponíveis para editar:</h1>
 
     <form action="{{ url_for('edit_user') }}" method="post">
+        <!--no action vc passa o comando usando o jinja para executar a função desejada em python, tem
+         que colocar o method tbm.-->
         <div class="Form">
             <div class="nome">
-                <input type="hidden" name="id" value="{{ user[0] }}">
+                <input type="hidden" name="id" value="{{ user[0] }}"> <!--colocao input hidden só para
+                passar o id pra função -->
                 <input name="nome" value="{{ user[1] }}">
             </div>
             <div class="email">

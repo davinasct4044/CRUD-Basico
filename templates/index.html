@@ -19,12 +19,15 @@
             </tr>
         </thead>
         <tbody>
-        {% for usuario in usuarios %}
+        {% for usuario in usuarios %} <!--faz um for para iterar e acessar valores em usuarios -->
     <tr>
         <td>{{ usuario[0] }}</td>
         <td>{{ usuario[1] }}</td>
         <td>{{ usuario[2] }}</td>
         <td><a href="{{ url_for('show_data_to_edit', id=usuario[0]) }}">editar</a></td>
+        <!--usa o url_for do flask para identificar o url a partir da função. o segundo parametro é para mandar
+         o id pelo URL-->
+        <td><a href="{{ url_for('erase_user', id=usuario[0]) }}">deletar</a></td>
     </tr>
 
         {% endfor %}

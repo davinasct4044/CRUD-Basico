@@ -47,3 +47,18 @@ def get_users(): #estrutura da função que lê os dados e os retorna
     users = cursor.fetchall()#atribui todos os dados buscados no cursor dentro da variavel
     connection.close()#fecha a conexão
     return users #retorna os usuarios do banco de dados
+
+def get_users_by_id(id):
+    connection = get_connection()
+    cursor = connection.cursor()
+    cursor.execute("""SELECT * FROM usuarios WHERE id = ?""", (id, ))
+    user = cursor.fetchone()
+    connection.close()
+    return user
+        
+def update_user(id, nome, email, senha):
+    connection = get_connection()
+    cursor = connection.cursor()
+    cursor.execute(""" UPDATE usuarios SET nome = ?, email = ?, senha = ? WHERE id = ?""", (nome, email, senha, id))
+    connection.commit()
+    connection.close()
